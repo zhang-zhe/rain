@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Transition Realize the snow scene</title>
+    <style>
+        html,body{
+            height: 100%;
+            width: 100%;
+        }
+        .bac{
+            width: 100%;
+            height: 100%;
+            position: relative;
+            left: 0;
+            top: 0;
+            background-image: url(./images/1.jpg);
+            background-size: cover;
+        }
+        .bac h1,h3{
+            text-align: center;
+            color: #fff;
+            margin: 0;
+            padding-top: 30px;
+            font-weight: 200;
+        }
+    </style>
+    <script src="./js/jquery-1.11.3.js"></script>
+    <script>
+        $(function () {
+            var arr=[];
+            for(var i=0;i<500;i++){
+                arr.push($("<div>").css({
+                    width:5,
+                    height:5,
+                    position:"absolute",
+                    "-webkit-filter":"blur(1px)",
+                    left:50+Math.random()*($(window).width()-100),
+                    top:-20+(-100*Math.random()),
+                    background:"#fff",
+                    transition:"top 2s linear "+Math.random()*3+"s"
+                }).appendTo("body"))
+            }
+            var flag=true;
+            document.onclick= function () {
+                if(!flag){
+                    return;
+                }
+                flag=false;
+                for(var i=0;i<500;i++){
+                    arr[i].css({
+                        top:$(window).height()-30
+                    });
+                    arr[i][0].addEventListener("webkitTransitionEnd", function () {
+                        $(this).css({
+                            transition:"none",
+                            top:-20+(-100*Math.random())
+                        });
+                        var that=this;
+                        setTimeout(function () {
+                            $(that).css({
+                                transition:"top 2s linear "+Math.random()*3+"s",
+                                top:$(window).height()-30
+                            })
+                        },0)
+                    },false);
+                }
+            }
+        })
+    </script>
+</head>
+<body style="margin: 0;">
+    <div class="bac">
+        <h1>TranTransition Realize the snow scene</h1>
+        <h3>Please click</h3>
+    </div>
+</body>
+</html>
